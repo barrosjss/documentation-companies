@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { Search, BookOpen } from "lucide-react";
+import Input from "@mui/material/Input";
+import Link from "next/link";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +20,43 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <header className="border-b">
+          <div className="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <BookOpen className="h-6 w-6" />
+              <h1 className="text-2xl font-bold">
+                <Link href="/">CompanyDocs</Link>
+              </h1>
+            </div>
+            <div className="flex items-center gap-4 hidden sm:block">
+              <div className="relative w-64">
+                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input placeholder="Buscar documentación..." className="pl-8" />
+              </div>
+            </div>
+          </div>
+        </header>
+        {children}
+        <footer className="border-t mt-16 bg-gray-50">
+          <div className="container mx-auto px-4 py-8">
+            <div className="text-center text-gray-600">
+              <p>
+                © {new Date().getFullYear()}{" "}
+                <a
+                  href="https://www.coderlabs.co/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline"
+                >
+                  CoderLabs
+                </a>
+                . Todos los derechos reservados.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </body>
     </html>
   );
 }
